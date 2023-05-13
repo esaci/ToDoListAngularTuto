@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +9,7 @@ export class AppComponent {
   progress: number = 0;
   intervalId: any;
   tache1: string = 'Faire les courses';
+  constructor(private zone: NgZone) { }
 
   increaseProgress() {
     if (this.progress === 9) {
@@ -16,15 +17,24 @@ export class AppComponent {
       this.tache1 = 'Faire les courses !!';
     }
     else {
-      this.progress += 1;
-      this.tache1 = 'Faire les courses';
+      if (this.progress % 2)
+        this.zone.run(() => {
+          this.progress += 1;
+          this.tache1 = 'Faire les courses';
+        });
+      else {
+        this.progress += 1;
+        this.tache1 = 'Faire les courses';
+      }
     }
   }
 
   ngOnInit() {
-    this.intervalId = setInterval(() => {
-      this.increaseProgress();
-    }, 1000);
+    this.zone.runOutsideAngular(() => {
+      this.intervalId = setInterval(() => {
+        this.increaseProgress();
+      }, 1000);
+    });
   }
   ngOnDestroy() {
     if (this.intervalId) {
