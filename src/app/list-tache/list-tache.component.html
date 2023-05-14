@@ -1,0 +1,12 @@
+<h1>To-Do List</h1>
+
+<p id="compteur">{{info.progress}}</p>
+
+<p>{{info.notification}}</p>
+<ul>
+  <li>{{tache1}}</li>
+  <li>Tache 2</li>
+  <li>Tache 3</li>
+  <li *ngFor="let tache of taches">{{ tache.title }}</li>
+  <button mat-raised-button id="buttonAjout" (click)="addTache()">Ajouter une tache</button>
+</ul>
