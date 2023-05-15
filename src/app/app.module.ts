@@ -6,7 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ListTacheComponent } from './list-tache/list-tache.component';
 import { TacheService } from './list-tache/tache.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import {MatButtonModule} from '@angular/material/button';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   providers: [
     TacheService

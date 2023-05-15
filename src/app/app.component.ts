@@ -8,5 +8,6 @@ import { Observer, catchError, concatMap, delay, distinctUntilChanged, map, of, 
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  title = 'toDoList';
   constructor() { }
 }
