@@ -13,9 +13,13 @@ export class ListTacheComponent {
   taches: any[] = [];
   tache1: string = 'Faire les courses';
   info: Info = { notification: null, progress: 0 };
+  filtre: boolean = false;
 
   constructor(private tacheService: TacheService, private zone: NgZone, private router: Router) { }
 
+  setFiltre() {
+    this.filtre = !this.filtre;
+  }
   addTache() {
     this.tacheService.addTache(this.info);
   }

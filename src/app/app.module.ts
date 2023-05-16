@@ -10,12 +10,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DetailTacheComponent } from './detail-tache/detail-tache.component';
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { TacheComponent } from './tache/tache.component';
+import { TacheDisplayDirective } from './directives/tache-display.directive';
+import { TacheStatusDirective } from './directives/tache-status.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListTacheComponent,
-    DetailTacheComponent
+    DetailTacheComponent,
+    TacheComponent,
+    TacheDisplayDirective,
+    TacheStatusDirective
   ],
   imports: [
     BrowserModule,

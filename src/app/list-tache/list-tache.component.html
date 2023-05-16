@@ -3,10 +3,13 @@
 <p id="compteur">{{info.progress}}</p>
 
 <p id="notification">{{info.notification}}</p>
+<div id="boutonContainer"><button mat-raised-button id="buttonFiltre" (click)="setFiltre()">Activer le filtre</button></div>
 <ul>
   <li>{{tache1}}</li>
   <li>Tache 2</li>
   <li>Tache 3</li>
-  <li *ngFor="let tache of taches" (click)="redirectToDetail(tache.id)">{{ tache.title }}</li>
+  <ng-container *ngFor="let tache of taches">
+    <li  (click)="redirectToDetail(tache.id)" *appTacheStatus="tache.done || filtre"><app-tache [tache]="tache.title" [appTacheDisplay]="tache.done"></app-tache></li>
+  </ng-container>
   <button mat-raised-button id="buttonAjout" (click)="addTache()">Ajouter une tache</button>
 </ul>
