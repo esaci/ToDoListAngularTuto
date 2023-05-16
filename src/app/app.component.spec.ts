@@ -3,6 +3,7 @@ import { AppComponent } from './app.component';
 import { ListTacheComponent } from './list-tache/list-tache.component';
 import { TacheService } from './list-tache/tache.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AppRoutingModule } from './app-routing/app-routing.module';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -11,7 +12,7 @@ describe('AppComponent', () => {
         AppComponent,
         ListTacheComponent
       ],
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule, AppRoutingModule],
       providers: [TacheService],
     }).compileComponents();
   });
