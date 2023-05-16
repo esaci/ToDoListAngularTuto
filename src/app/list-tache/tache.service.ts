@@ -7,6 +7,15 @@ export interface Info {
   progress: number
 }
 
+export interface Tache {
+  id: number;
+  title: string;
+  description: string;
+  done: boolean;
+  date: Date;
+  status: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,11 +23,24 @@ export class TacheService {
   progress: number = 0;
   intervalId: any;
   notification: string | null = null;
-
+  taches: Tache[] | undefined;
   constructor(private zone: NgZone, private http: HttpClient) { }
 
+  getTache(id: string | null) {
+    if (this.taches) {
+      return this.taches.find(tache => tache.id === Number(id));
+    }
+    const res = this.http.get('http://185.209.223.19:8100/getList').pipe(map((message: any) => message.data));
+    res.subscribe((taches: Tache[]) => {
+      this.taches = taches;
+    });
+    return res
+}
+
   getList() {
-    return this.http.get('http://185.209.223.19:8100/getList').pipe(
+    const res = this.http.get('http://185.209.223.19:8100/getList');
+
+    return res.pipe(
       map((message: any) => message.data),
       concatMap(taches => {
         return taches;
@@ -30,7 +52,7 @@ export class TacheService {
         console.error(err);
         return of([]);
       })
-    );
+    );;
   }
 
   addTache(info: Info) {

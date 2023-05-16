@@ -69,4 +69,12 @@ describe('ListTacheComponent', () => {
     fixture.detectChanges();
     expect(compteurElement.textContent).toContain('2');
   });
+
+  it('doit lancer getList de TacheService', () => {
+    const getListSpy = spyOn(tacheService, 'getList').and.returnValue(of([]));
+    component.ngOnInit();
+    expect(tacheService.getList).toHaveBeenCalled();
+    expect(getListSpy).toHaveBeenCalled();
+  }
+  );
 });

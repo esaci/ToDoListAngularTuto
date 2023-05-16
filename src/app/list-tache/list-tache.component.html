@@ -7,6 +7,6 @@
   <li>{{tache1}}</li>
   <li>Tache 2</li>
   <li>Tache 3</li>
-  <li *ngFor="let tache of taches">{{ tache.title }}</li>
+  <li *ngFor="let tache of taches" (click)="redirectToDetail(tache.id)">{{ tache.title }}</li>
   <button mat-raised-button id="buttonAjout" (click)="addTache()">Ajouter une tache</button>
 </ul>

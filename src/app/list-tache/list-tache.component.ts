@@ -1,5 +1,6 @@
 import { Component, NgZone } from '@angular/core';
 import { Info, TacheService } from './tache.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-tache',
@@ -13,13 +14,20 @@ export class ListTacheComponent {
   tache1: string = 'Faire les courses';
   info: Info = { notification: null, progress: 0 };
 
-  constructor(private tacheService: TacheService, private zone: NgZone) { }
+  constructor(private tacheService: TacheService, private zone: NgZone, private router: Router) { }
 
   addTache() {
     this.tacheService.addTache(this.info);
   }
 
+  redirectToDetail(id: number) {
+    console.log('redirectToDetail:', id)
+    // Utiliser le service Router pour naviguer vers le détail de la tâche
+    this.router.navigate(['/detail-tache', id], { queryParams: { infoSupp: 'valeur' } });
+  }
+
   ngOnInit() {
+    console.log('ngOnInit:', this.taches)
     this.tacheService.getList().subscribe(taches => {
       this.taches.push(taches);
     });
