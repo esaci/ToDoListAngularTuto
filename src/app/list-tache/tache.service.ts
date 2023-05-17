@@ -24,6 +24,7 @@ export class TacheService {
   intervalId: any;
   notification: string | null = null;
   taches: Tache[] | undefined;
+  reponsePost: string = "";
   constructor(private zone: NgZone, private http: HttpClient) { }
 
   getTache(id: string | null) {
@@ -35,7 +36,7 @@ export class TacheService {
       this.taches = taches;
     });
     return res
-}
+  }
 
   getList() {
     const res = this.http.get('http://185.209.223.19:8100/getList');
@@ -72,8 +73,13 @@ export class TacheService {
       error: (error: any) => console.log('Error: ', error),
       complete: () => console.log('Complete!'),
     };
+    // { message: 'Tache ajoutée', data: newTodo }
     return this.http.post('http://185.209.223.19:8100/add', tache, { observe: 'response' }).pipe(
-      tap(() => info.notification = "La tâche est en cours d'ajout."),
+      tap((res: any) => {
+        info.notification = "La tâche est en cours d'ajout.";
+        this.reponsePost = res.body.message;
+        console.log('res: ', this.reponsePost);
+      }),
       delay(5000),
       tap(() => info.notification = null),
       catchError((err) => {

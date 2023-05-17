@@ -10,10 +10,10 @@ describe('DetailTacheComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DetailTacheComponent ],
+      declarations: [DetailTacheComponent],
       imports: [HttpClientTestingModule, AppRoutingModule],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(DetailTacheComponent);
     component = fixture.componentInstance;

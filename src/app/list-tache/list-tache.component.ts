@@ -1,6 +1,7 @@
 import { Component, NgZone } from '@angular/core';
-import { Info, TacheService } from './tache.service';
+import { Info, Tache, TacheService } from './tache.service';
 import { Router } from '@angular/router';
+import { Observable, Observer } from 'rxjs';
 
 @Component({
   selector: 'app-list-tache',
@@ -11,10 +12,23 @@ export class ListTacheComponent {
   progress: number = 0;
   intervalId: any;
   taches: any[] = [];
-  tache1: string = 'Faire les courses';
   info: Info = { notification: null, progress: 0 };
   filtre: boolean = false;
-
+  derniereTache: Observable<Tache> | undefined;
+  observerList: Observer<any> = {
+    next: (value: Tache) => {
+      this.taches.push(value);
+    },
+    error: (err: any) => {
+      console.log(err);
+    },
+    complete: () => {
+      this.taches.sort((tache1: Tache, tache2: Tache) => {
+        return tache1.done === tache2.done ? 0 : tache1.done ? 1 : -1;
+      }
+      );
+    }
+  }
   constructor(private tacheService: TacheService, private zone: NgZone, private router: Router) { }
 
   setFiltre() {
@@ -31,10 +45,8 @@ export class ListTacheComponent {
   }
 
   ngOnInit() {
-    console.log('ngOnInit:', this.taches)
-    this.tacheService.getList().subscribe(taches => {
-      this.taches.push(taches);
-    });
+    this.derniereTache = this.tacheService.getList();
+    this.derniereTache.subscribe(this.observerList);
     this.zone.runOutsideAngular(() => {
       this.intervalId = setInterval(() => {
           this.tacheService.increaseProgress(this.info);

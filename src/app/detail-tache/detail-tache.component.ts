@@ -24,7 +24,6 @@ export class DetailTacheComponent {
     this.tacheService.getList();
     const id = this.route.snapshot.paramMap.get('id'); // Récupérer l'ID de l'URL
     const tache = this.tacheService.getTache(id); // Utiliser le service pour obtenir les détails de la tâche
-    console.log('tache', tache, 'est un observable?', tache instanceof Observable);
     if (tache instanceof Observable) {
       tache.subscribe((taches: Tache[]) => {
         const tacheFind = taches.find(tache => tache.id === Number(id));

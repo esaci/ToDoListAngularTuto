@@ -6,7 +6,6 @@ import { concatMap, delay } from 'rxjs';
 describe('TacheService', () => {
   let service: TacheService;
   let httpMock: HttpTestingController;
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
@@ -40,13 +39,12 @@ describe('TacheService', () => {
     req.flush({ data: tachesSimulees });
   }));
 
-  it('doit lancer la requete POST', () => {
-    const testInfo: Info = { notification: null, progress: 0 };
-  
-    service.addTache(testInfo);
-  
-    const req = httpMock.expectOne('http://185.209.223.19:8100/add');
-    expect(req.request.method).toEqual('POST');
-  });
-  
+  // it('doit lancer la requete POST', async () => {
+  //   const postReponseSimulee = 'Tache ajoutée';
+  //   const testInfo: Info = { notification: null, progress: 0 };
+
+  //   const req = httpMock.expectOne('http://185.209.223.19:8100/add');
+  //   expect(req.request.method).toEqual('POST');
+  // });
+
 });

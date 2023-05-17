@@ -13,6 +13,8 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
 import { TacheComponent } from './tache/tache.component';
 import { TacheDisplayDirective } from './directives/tache-display.directive';
 import { TacheStatusDirective } from './directives/tache-status.directive';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormTacheComponent } from './form-tache/form-tache.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { TacheStatusDirective } from './directives/tache-status.directive';
     DetailTacheComponent,
     TacheComponent,
     TacheDisplayDirective,
-    TacheStatusDirective
+    TacheStatusDirective,
+    FormTacheComponent
   ],
   imports: [
     BrowserModule,
@@ -29,6 +32,7 @@ import { TacheStatusDirective } from './directives/tache-status.directive';
     BrowserAnimationsModule,
     MatButtonModule,
     AppRoutingModule,
+    ReactiveFormsModule,
   ],
   providers: [
     TacheService

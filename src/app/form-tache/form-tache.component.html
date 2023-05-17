@@ -1,0 +1,26 @@
+<form [formGroup]="tacheForm" (ngSubmit)="onSubmit()">
+	<label>
+	  Titre:
+	  <input type="text" formControlName="titre" id="input1">
+	</label>
+  
+	<label>
+	  Description:
+	  <textarea formControlName="description" id="input2"></textarea>
+	</label>
+  
+	<label>
+	  Statut:
+	  <select formControlName="statut" id="input3">
+		<option value="Non démarrée">Non démarrée</option>
+		<option value="En cours">En cours</option>
+		<option value="Terminée">Terminée</option>
+	  </select>
+	  <div *ngIf="tacheForm.get('statut')?.errors?.['statutInvalide']">
+		Statut invalide.
+	  </div>
+	</label>
+  
+	<button type="submit">Submit</button>
+  </form>
+  

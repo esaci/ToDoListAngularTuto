@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, OnChanges } from '@angular/core';
 
 @Directive({
-  selector: '[appTacheDisplay]'
+  selector: '[appTacheDisplay]',
 })
 export class TacheDisplayDirective implements OnChanges {
   @Input('appTacheDisplay') isCompleted: boolean = false;

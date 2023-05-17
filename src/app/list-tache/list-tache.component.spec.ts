@@ -45,10 +45,8 @@ describe('ListTacheComponent', () => {
     const increaseProgressSpy = spyOn(tacheService, 'increaseProgress');
     component.ngOnInit();
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    // setTimeout(() => {
     expect(tacheService.increaseProgress).toHaveBeenCalled();
     expect(increaseProgressSpy).toHaveBeenCalled();
-    // }, 1000);
   }
   );
 
