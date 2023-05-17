@@ -1,7 +1,7 @@
 import { Component, NgZone } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observer, catchError, concatMap, delay, distinctUntilChanged, map, of, tap } from 'rxjs';
-
+import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
+import { TacheService } from './list-tache/tache.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,5 +9,29 @@ import { Observer, catchError, concatMap, delay, distinctUntilChanged, map, of, 
 })
 export class AppComponent {
   title = 'toDoList';
-  constructor() { }
+  socketMessage: any = "No message yet";
+  socket: WebSocketSubject<unknown> | undefined;
+  nom: string = "";
+  constructor(private service: TacheService) { }
+
+  ngOnInit() {
+    this.socket = webSocket('ws://185.209.223.19:8095/');
+    this.socket.subscribe(
+      (msg: any) => {
+        console.log(msg);
+        this.socketMessage = msg.message;
+      },
+      // err => console.log(err),
+      // () => console.log('complete')
+    );
+
+    this.socket.next({ message: 'message' });
+    this.socket.next('message');
+    // this.socket.complete();
+    // this.socket.error({ code: 4000, raison: 'Error !!!!' });
+    this.service.recupNom().subscribe((nom: any) => {
+      this.nom = nom;
+    }
+    );
+  }
 }

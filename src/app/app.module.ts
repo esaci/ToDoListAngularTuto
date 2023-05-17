@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ListTacheComponent } from './list-tache/list-tache.component';
 import { TacheService } from './list-tache/tache.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +15,7 @@ import { TacheDisplayDirective } from './directives/tache-display.directive';
 import { TacheStatusDirective } from './directives/tache-status.directive';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormTacheComponent } from './form-tache/form-tache.component';
+import { PrenomInterceptorService } from './prenom-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { FormTacheComponent } from './form-tache/form-tache.component';
     ReactiveFormsModule,
   ],
   providers: [
-    TacheService
+    TacheService,
+    { provide: HTTP_INTERCEPTORS, useClass: PrenomInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]
 })

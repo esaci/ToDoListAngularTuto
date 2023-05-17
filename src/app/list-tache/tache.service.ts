@@ -89,7 +89,7 @@ export class TacheService {
     ).subscribe(observerPost);
   }
 
-  addTacheForm(tache: {title: string, description: string}) {
+  addTacheForm(tache: { title: string, description: string }) {
     // { message: 'Tache ajoutée', data: newTodo }
     return this.http.post('http://185.209.223.19:8100/add', tache, { observe: 'response' }).pipe(
       tap((res: any) => {
@@ -103,6 +103,10 @@ export class TacheService {
     );
   }
 
+  recupNom() {
+    // { message: 'Tache ajoutée', data: newTodo }
+    return this.http.get('http://185.209.223.19:8100/qui').pipe(tap((obj) => console.log('requete envoyee', obj)), map((message: any) => message.data));
+  }
 
   increaseProgress(info: Info) {
     if (info.progress === 9) {
