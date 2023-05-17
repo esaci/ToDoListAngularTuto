@@ -39,9 +39,12 @@ export class ListTacheComponent {
   }
 
   redirectToDetail(id: number) {
-    console.log('redirectToDetail:', id)
     // Utiliser le service Router pour naviguer vers le détail de la tâche
     this.router.navigate(['/detail-tache', id], { queryParams: { infoSupp: 'valeur' } });
+  }
+
+  redirectToForm() {
+    this.router.navigate(['/formulaire']);
   }
 
   ngOnInit() {
@@ -49,7 +52,7 @@ export class ListTacheComponent {
     this.derniereTache.subscribe(this.observerList);
     this.zone.runOutsideAngular(() => {
       this.intervalId = setInterval(() => {
-          this.tacheService.increaseProgress(this.info);
+        this.tacheService.increaseProgress(this.info);
       }, 1000);
     });
   }

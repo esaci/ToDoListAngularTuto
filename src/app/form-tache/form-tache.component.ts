@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { TacheService } from '../list-tache/tache.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-tache',
@@ -8,6 +10,8 @@ import { AbstractControl, FormControl, FormGroup, ValidatorFn, Validators } from
 })
 export class FormTacheComponent {
   STATUTS_POSSIBLES = ['Non démarrée', 'En cours', 'Terminée'];
+
+  constructor(private tacheService: TacheService, private router: Router) { }
 
   verifieTitreMaj(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
@@ -24,23 +28,28 @@ export class FormTacheComponent {
       Validators.required,
       Validators.minLength(3),
       Validators.maxLength(100),
-      this.verifieTitreMaj()
+      this.verifieTitreMaj(),
+      Validators.required
     ]),
-    description: new FormControl(''),
+    description: new FormControl('', 
+    Validators.required
+    ),
     statut: new FormControl(''),
   });
-    // statut: new FormControl('', [this.statutValidator(this.STATUTS_POSSIBLES)]),
 
-  constructor() { }
 
   ngOnInit() { }
 
   onSubmit() {
     if (this.tacheForm.invalid) {
-      console.log('Formulaire invalide');
       return;
     }
-
+    this.tacheService.addTacheForm({
+      title: this.tacheForm.value.titre!,
+      description: this.tacheForm.value.description!,
+    }).subscribe(() => {
+      this.router.navigate(['']);
+    });
     console.log(this.tacheForm.value);
   }
 }

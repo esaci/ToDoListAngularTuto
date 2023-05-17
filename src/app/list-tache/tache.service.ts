@@ -89,6 +89,20 @@ export class TacheService {
     ).subscribe(observerPost);
   }
 
+  addTacheForm(tache: {title: string, description: string}) {
+    // { message: 'Tache ajoutée', data: newTodo }
+    return this.http.post('http://185.209.223.19:8100/add', tache, { observe: 'response' }).pipe(
+      tap((res: any) => {
+        this.reponsePost = res.body.message;
+      }),
+      delay(5000),
+      catchError((err) => {
+        console.error(err);
+        return of([]);
+      })
+    );
+  }
+
 
   increaseProgress(info: Info) {
     if (info.progress === 9) {
