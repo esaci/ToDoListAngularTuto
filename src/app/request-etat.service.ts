@@ -18,4 +18,10 @@ export class RequestEtatService {
   setFinished() {
       this.etatRequete.next('Fin');
   }
+
+  setError() {
+      this.etatRequete.next('Erreur');
+  }
 }
+
+// Pour tester 

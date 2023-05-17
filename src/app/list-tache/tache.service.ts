@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import { catchError, concatMap, delay, distinctUntilChanged, map, of, tap } from 'rxjs';
+import { WebSocketSubject, webSocket } from 'rxjs/webSocket';
 
 export interface Info {
   notification: string | null,
@@ -20,13 +21,30 @@ export interface Tache {
   providedIn: 'root'
 })
 export class TacheService {
+  socket: WebSocketSubject<unknown> | undefined;
   progress: number = 0;
   intervalId: any;
   notification: string | null = null;
   taches: Tache[] | undefined;
   reponsePost: string = "";
-  constructor(private zone: NgZone, private http: HttpClient) { }
 
+  constructor(private zone: NgZone, private http: HttpClient) {
+    this.socket = webSocket('ws://185.209.223.19:8095/');
+  }
+
+  getSocket() {
+    if (!this.socket)
+      this.socket = webSocket('ws://185.209.223.19:8095/');
+    return this.socket;
+  }
+
+  sendMessage() {
+    this.socket?.next('message');
+  }
+  addtacheDone(id: string) {
+    console.log('voici l\'id: ', id);
+    this.socket?.next(`{addTacheDone: ${id}}`);
+  }
   getTache(id: string | null) {
     if (this.taches) {
       return this.taches.find(tache => tache.id === Number(id));

@@ -1,0 +1,17 @@
+{
+	"name": "My ToDo List",
+	"short_name": "ToDo List",
+	"description": "Une application simple pour gérer votre liste de tâches",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#fafafa",
+	"theme_color": "#ff5722",
+	"icons": [
+	  {
+		"src": "/assets/icons/141737.png",
+		"sizes": "512x512",
+		"type": "image/png"
+	  }
+	]
+  }
+  

@@ -15,7 +15,7 @@ export class AppComponent {
   constructor(private service: TacheService) { }
 
   ngOnInit() {
-    this.socket = webSocket('ws://185.209.223.19:8095/');
+    this.socket = this.service.getSocket();
     this.socket.subscribe(
       (msg: any) => {
         console.log(msg);
@@ -24,9 +24,6 @@ export class AppComponent {
       // err => console.log(err),
       // () => console.log('complete')
     );
-
-    this.socket.next({ message: 'message' });
-    this.socket.next('message');
     // this.socket.complete();
     // this.socket.error({ code: 4000, raison: 'Error !!!!' });
     this.service.recupNom().subscribe((nom: any) => {
