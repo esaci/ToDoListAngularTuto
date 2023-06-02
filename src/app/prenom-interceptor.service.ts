@@ -13,7 +13,7 @@ export class PrenomInterceptorService {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.reqEtatService.setPending(); // set ma variable a en cours dans mon service
     const clonedRequest = req.clone({
-      headers: req.headers.set('X-Prenom', 'Elias')
+      headers: req.headers.set('X-Prenom', 'Christopher')
     });
 
     return next.handle(clonedRequest).pipe(

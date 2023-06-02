@@ -41,10 +41,12 @@ export class TacheService {
   sendMessage() {
     this.socket?.next('message');
   }
+
   addtacheDone(id: string) {
     console.log('voici l\'id: ', id);
     this.socket?.next(`{addTacheDone: ${id}}`);
   }
+  
   getTache(id: string | null) {
     if (this.taches) {
       return this.taches.find(tache => tache.id === Number(id));
@@ -107,13 +109,14 @@ export class TacheService {
     ).subscribe(observerPost);
   }
 
-  addTacheForm(tache: { title: string, description: string }) {
+  addTacheForm(tache: { title: string, description: string, status: string }) {
     // { message: 'Tache ajoutée', data: newTodo }
+    console.log("j'envoie bien", tache);
     return this.http.post('http://185.209.223.19:8100/add', tache, { observe: 'response' }).pipe(
       tap((res: any) => {
         this.reponsePost = res.body.message;
       }),
-      delay(5000),
+      // delay(5000),
       catchError((err) => {
         console.error(err);
         return of([]);

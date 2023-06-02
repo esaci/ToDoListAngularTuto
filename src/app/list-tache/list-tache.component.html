@@ -5,10 +5,10 @@
 <p id="notification">Notif: {{info.notification}}</p>
 <div id="boutonContainer"><button mat-raised-button id="buttonFiltre" (click)="setFiltre()">Activer le filtre</button></div>
 <ul>
-  <ng-container *ngFor="let tache of taches; trackby: getTacheId">
-    <li   *appTacheStatus="!tache.done || filtre">
+  <ng-container *ngFor="let tache of taches">
+    <li   (click)="redirectToDetail(tache.id)" *appTacheStatus="!tache.done || filtre">
       <app-tache 
-      [tache]="tache.title" [appTacheDisplay]="tache.done" ></app-tache><button (click)="addTacheDone(tache.id)">✅</button>
+      [tache]="tache.title" [appTacheDisplay]="tache.done" ></app-tache>
     </li>
   </ng-container>
   <button mat-raised-button id="buttonAjout" (click)="redirectToForm()">Ajouter une tache</button>

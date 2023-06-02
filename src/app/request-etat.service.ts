@@ -12,16 +12,17 @@ export class RequestEtatService {
   public etatRequete$ = this.etatRequete.asObservable();
 
   setPending() {
-      this.etatRequete.next('En cours');
+    console.log('Requete en cours');
+    this.etatRequete.next('En cours');
   }
 
   setFinished() {
-      this.etatRequete.next('Fin');
+    console.log('Requete terminée');
+    this.etatRequete.next('Fin');
   }
 
   setError() {
-      this.etatRequete.next('Erreur');
+    console.log('Request error');
+    this.etatRequete.next('Erreur');
   }
 }
-
-// Pour tester 

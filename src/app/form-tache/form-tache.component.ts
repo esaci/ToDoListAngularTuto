@@ -10,8 +10,10 @@ import { Router } from '@angular/router';
 })
 export class FormTacheComponent {
   STATUTS_POSSIBLES = ['Non démarrée', 'En cours', 'Terminée'];
+  errorMessage: string = '';
 
-  constructor(private tacheService: TacheService, private router: Router) { }
+  constructor(private tacheService: TacheService, private router: Router) {
+  }
 
   verifieTitreMaj(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
@@ -31,8 +33,8 @@ export class FormTacheComponent {
       this.verifieTitreMaj(),
       Validators.required
     ]),
-    description: new FormControl('', 
-    Validators.required
+    description: new FormControl('',
+      Validators.required
     ),
     statut: new FormControl(''),
   });
@@ -42,12 +44,17 @@ export class FormTacheComponent {
 
   onSubmit() {
     if (this.tacheForm.invalid) {
+      this.errorMessage = 'Veuillez remplir tous les champs correctement';
       return;
     }
-    this.tacheService.addTacheForm({
+    this.errorMessage = '';
+    const data = {
       title: this.tacheForm.value.titre!,
       description: this.tacheForm.value.description!,
-    }).subscribe(() => {
+      status: this.tacheForm.value.statut!,
+    };
+    console.log('forme', data);
+    this.tacheService.addTacheForm(data).subscribe(() => {
       this.router.navigate(['']);
     });
     console.log(this.tacheForm.value);
