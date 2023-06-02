@@ -1,0 +1,39 @@
+ul {
+	list-style-type: none;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+li {
+	margin-bottom: 10px;
+	background-color: #1e2341;
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
+	width: 300px;
+	display: flex;
+	justify-content: space-between;
+}
+
+h1 {
+	text-align: center;
+}
+
+#compteur {
+	display: flex;
+	justify-content: end;
+	padding-right: 2rem;
+}
+
+#buttonAjout {
+	/* background-color: #f2f2f2; */
+	border: 1px solid #1e2341;
+	background-color: #1e2341;
+}
+
+#boutonContainer {
+	display: flex;
+	justify-content: center;
+}

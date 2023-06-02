@@ -1,0 +1,15 @@
+<h1>To-Do List</h1>
+
+<p id="compteur">{{info.progress}}</p>
+<button (click)="sendMessage()">Envoyer "Message"</button>
+<p id="notification">Notif: {{info.notification}}</p>
+<div id="boutonContainer"><button mat-raised-button id="buttonFiltre" (click)="setFiltre()">Activer le filtre</button></div>
+<ul>
+  <ng-container *ngFor="let tache of taches">
+    <li   (click)="redirectToDetail(tache.id)" *appTacheStatus="!tache.done || filtre">
+      <app-tache 
+      [tache]="tache.title" [appTacheDisplay]="tache.done" ></app-tache>
+    </li>
+  </ng-container>
+  <button mat-raised-button id="buttonAjout" (click)="redirectToForm()">Ajouter une tache</button>
+</ul>
